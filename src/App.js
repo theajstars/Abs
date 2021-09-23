@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import Cookies from "js-cookie";
+import React, { useEffect } from "react";
+import { Redirect } from "react-router-dom";
+import "./Assets/CSS/All.css";
+import Register from "./Components/Auth/Register";
+import Products from "./Components/Products";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const token = Cookies.get("ud");
+  useEffect(() => {}, []);
+  if (token !== undefined) {
+    return <Products />;
+  } else {
+    return <Redirect to="/register" />;
+  }
 }
 
 export default App;

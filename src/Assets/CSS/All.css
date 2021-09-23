@@ -1,0 +1,18 @@
+@import url("./fonts.css");
+body {
+  margin: 0px;
+  font-family: "Jost", sans-serif;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.top-right-link {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  color: rgb(15, 15, 15);
+  font-size: 17px;
+}
