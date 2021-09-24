@@ -3,10 +3,13 @@ import Cookies from "js-cookie";
 import React, { useState, useEffect } from "react";
 import GoogleLogin from "react-google-login";
 import "../../Assets/CSS/Register.css";
+import ResponseMessage from "../ResponseMessage";
 import TopRightLink from "../TopRightLink";
 import GoogleAuthButton from "./GoogleAuthButton";
 
 export default function Register() {
+  const googleSecretKey = process.env.REACT_APP_google_secret;
+
   const token = Cookies.get("ud");
   if (token !== undefined) {
     window.location.href = "/";
@@ -20,6 +23,10 @@ export default function Register() {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [password2Error, setPassword2Error] = useState(false);
+
+  const [showResponse, setShowResponse] = useState(0);
+  const [responseType, setResponseType] = useState(null);
+  const [responseText, setResponseText] = useState("");
 
   const googleLoginSuccess = async (googleData) => {
     const res = await fetch("http://localhost:8080/api/v1/auth/google", {
@@ -37,6 +44,14 @@ export default function Register() {
   };
 
   const googleLoginFailure = async (googleData) => {};
+  function showResponseMessage(type, message) {
+    setResponseText(message);
+    setResponseType(type);
+    setShowResponse(360);
+    setTimeout(() => {
+      setShowResponse(0);
+    }, 2500);
+  }
   function registerUser() {
     if (name.length === 0) {
       setNameError(true);
@@ -73,13 +88,27 @@ export default function Register() {
         password: password,
       };
       axios.post("http://localhost:8080/user/register", user).then((res) => {
-        console.log(res);
+        console.log(res.data);
+        if (res.data.userExists) {
+          // If user already exists
+          showResponseMessage("error", "User already exists!");
+        }
+        if (res.data.auth) {
+          showResponseMessage("success", "Account created!");
+          const token = res.data.token;
+          Cookies.set("ud", token);
+        }
       });
     }
   }
   return (
     <>
       <TopRightLink tag="Login" route="/login" />
+      <ResponseMessage
+        type={responseType}
+        message={responseText}
+        showResponse={showResponse}
+      />
       <div className="register-container">
         <span className="form-head">Register</span>
         <form
@@ -136,7 +165,7 @@ export default function Register() {
           </button>
           <div className="google-auth-container">
             <GoogleLogin
-              clientId="968807946751-56tmu40s84lvcbsicd1i99j7ma4pnsbt.apps.googleusercontent.com"
+              clientId={googleSecretKey}
               cookiePolicy={"single_host_origin"}
               onSuccess={googleLoginSuccess}
               onFailure={googleLoginFailure}

@@ -1,5 +1,10 @@
 import React from "react";
+import Sidebar from "./Sidebar";
 
 export default function Products() {
-  return <div></div>;
+  return (
+    <>
+      <Sidebar />
+    </>
+  );
 }
