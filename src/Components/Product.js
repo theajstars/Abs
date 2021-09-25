@@ -1,9 +1,8 @@
 import { Container, Grid, Rating } from "@mui/material";
 import axios from "axios";
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import "../Assets/CSS/Product.css";
-// import "../Assets/CSS/Auth.css";
 import SearchBox from "./SearchBox";
 export default function Product() {
   const [product, setProduct] = useState({
@@ -17,8 +16,11 @@ export default function Product() {
     image: "",
     amountInStock: "",
   });
+
   const [relatedProducts, setRelatedProducts] = useState([]);
-  const [currentLocation, setCurrentLocation] = useState(window.location.href);
+  const [numberInCart, updateNumberInCart] = useState(0);
+
+  const [copiedResponseMessage, setCopiedResponseMessage] = useState("");
   function fetchProductInfo() {
     var url = new URL(window.location.href);
     const lastIndex = url.pathname.lastIndexOf("/");
@@ -32,16 +34,71 @@ export default function Product() {
         setRelatedProducts(res.data.relatedProducts);
       });
   }
+  function findProductInCart() {
+    const token = Cookies.get("ud");
+    if (token !== undefined) {
+      // User is logged in
+      axios
+        .post(
+          "http://localhost:8080/cart/product",
+          { productID: product.id },
+          {
+            headers: { "x-access-token": token },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          if (res.data.inCart) {
+            updateNumberInCart(res.data.inCart.length);
+          }
+        });
+    } else {
+      console.log("Not logged in");
+    }
+  }
   useEffect(() => {
     console.log(product);
     fetchProductInfo();
+    findProductInCart();
   }, []);
-
   useEffect(() => {
-    fetchProductInfo();
-  }, [currentLocation]);
+    if (product.id !== "") {
+      findProductInCart();
+    }
+  }, [product]);
+
   function formatPrice(price) {
     return parseInt(price).toLocaleString();
+  }
+  function addProductToCart() {
+    axios
+      .post(
+        "http://localhost:8080/product/cart/add",
+        { product_id: product.id, product_name: product.name },
+        { headers: { "x-access-token": Cookies.get("ud") } }
+      )
+      .then((res) => {
+        console.log(res);
+        findProductInCart();
+      });
+  }
+  function removeProductFromCart() {
+    axios
+      .post(
+        "http://localhost:8080/product/cart/remove",
+        { product_id: product.id },
+        { headers: { "x-access-token": Cookies.get("ud") } }
+      )
+      .then((res) => {
+        console.log(res);
+        findProductInCart();
+      });
+  }
+  function shareProduct() {
+    navigator.clipboard.writeText(window.location.href).then((success) => {
+      setCopiedResponseMessage("Link Copied!");
+      setTimeout(() => setCopiedResponseMessage(""), 2500);
+    });
   }
   return (
     <>
@@ -65,13 +122,59 @@ export default function Product() {
               <span style={{ fontSize: "25px", wordSpacing: "-14px" }}>₦ </span>
               {formatPrice(product.price)}
             </span>
-            <button className="continue-btn">Add to cart</button>
+            {/* {cartOptions} */}
+            {numberInCart === 0 && (
+              <button
+                className="continue-btn"
+                onClick={() => addProductToCart()}
+              >
+                Add to cart
+              </button>
+            )}
+            {numberInCart > 0 && (
+              <div className="top-right-row">
+                <button
+                  className="continue-btn modify-cart-btn"
+                  onClick={() => addProductToCart()}
+                >
+                  <i className="far fa-plus"></i>
+                </button>
+                <button
+                  className="continue-btn modify-cart-btn"
+                  onClick={() => removeProductFromCart()}
+                >
+                  <i className="far fa-minus"></i>
+                </button>
+                <span
+                  className={`${
+                    numberInCart > 0
+                      ? "top-right-number-in-cart"
+                      : "none-display"
+                  }`}
+                >
+                  {numberInCart > 0 ? numberInCart : ""}
+                </span>
+              </div>
+            )}
             <div className="top-right-row">
               <span className="top-right-product-action">
+                <i className="far fa-heart"></i>
+              </span>
+              <span
+                className="top-right-product-action"
+                onClick={() => shareProduct()}
+              >
                 <i className="far fa-share-alt"></i>
               </span>
-              <span className="top-right-product-action">
-                <i className="far fa-heart"></i>
+              <span
+                style={{
+                  display: `${
+                    copiedResponseMessage.length === 0 ? "none" : "block"
+                  }`,
+                }}
+                className="top-right-copied-response"
+              >
+                {copiedResponseMessage}
               </span>
             </div>
             <span

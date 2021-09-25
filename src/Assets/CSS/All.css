@@ -16,3 +16,6 @@ body {
   color: rgb(15, 15, 15);
   font-size: 17px;
 }
+.none-display {
+  display: none;
+}

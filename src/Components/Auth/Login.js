@@ -5,7 +5,6 @@ import GoogleLogin from "react-google-login";
 import "../../Assets/CSS/Login.css";
 import ResponseMessage from "../ResponseMessage";
 import TopRightLink from "../TopRightLink";
-import GoogleAuthButton from "./GoogleAuthButton";
 export default function Login() {
   const token = Cookies.get("ud");
   if (token !== undefined) {

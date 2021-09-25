@@ -5,7 +5,6 @@ import GoogleLogin from "react-google-login";
 import "../../Assets/CSS/Register.css";
 import ResponseMessage from "../ResponseMessage";
 import TopRightLink from "../TopRightLink";
-import GoogleAuthButton from "./GoogleAuthButton";
 
 export default function Register() {
   const googleSecretKey = process.env.REACT_APP_google_secret;
