@@ -16,7 +16,7 @@ ReactDOM.render(
     <Route exact path="/register" component={Register} />
     <Route exact path="/login" component={Login} />
     <Route path="/products" component={Products} />
-    <Route path="/product" component={Product} />
+    <Route path="/product/" component={Product} />
   </Router>,
   document.getElementById("root")
 );
