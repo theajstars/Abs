@@ -2,14 +2,19 @@ import Cookies from "js-cookie";
 import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import "./Assets/CSS/All.css";
-import Register from "./Components/Auth/Register";
-import Products from "./Components/Products";
+import Home from "./Components/Home";
+import Sidebar from "./Components/Sidebar";
 
 function App() {
   const token = Cookies.get("ud");
   useEffect(() => {}, []);
   if (token !== undefined) {
-    return <Products />;
+    return (
+      <>
+        {/* <Sidebar /> */}
+        <Home />
+      </>
+    );
   } else {
     return <Redirect to="/register" />;
   }

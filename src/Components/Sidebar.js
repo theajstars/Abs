@@ -17,7 +17,7 @@ export default function Sidebar() {
   return (
     <>
       <span className="open-menu" onClick={() => setContainerDisplay("0px")}>
-        <i className="far fa-bars"></i>
+        <i className="fal fa-dolly"></i>
       </span>
       <span
         className={`${containerDisplay === "0px" ? "close-all" : "hide-close"}`}
@@ -101,7 +101,14 @@ export default function Sidebar() {
         <div className="subcategories">
           {currentSubcategory.map((subcat) => {
             return (
-              <Link to={subcat.path} className="subcategory">
+              <Link
+                to={subcat.path}
+                className="subcategory"
+                onClick={() => {
+                  setContainerDisplay("-270px");
+                  setCurrentSubcategory([]);
+                }}
+              >
                 {subcat.name}
               </Link>
             );

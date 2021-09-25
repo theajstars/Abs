@@ -1,12 +1,19 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GoogleLogin from "react-google-login";
 import "../../Assets/CSS/Login.css";
 import ResponseMessage from "../ResponseMessage";
 import TopRightLink from "../TopRightLink";
 import GoogleAuthButton from "./GoogleAuthButton";
 export default function Login() {
+  const token = Cookies.get("ud");
+  if (token !== undefined) {
+    window.location.href = "/";
+  }
+  useEffect(() => {
+    document.title = "Login | Abs";
+  }, []);
   const googleSecretKey = process.env.REACT_APP_google_secret;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

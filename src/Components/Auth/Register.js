@@ -14,6 +14,9 @@ export default function Register() {
   if (token !== undefined) {
     window.location.href = "/";
   }
+  useEffect(() => {
+    document.title = "Register | Abs";
+  }, []);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

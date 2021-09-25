@@ -1,10 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "./Sidebar";
 
 export default function Products() {
-  return (
-    <>
-      <Sidebar />
-    </>
-  );
+  useEffect(() => {}, []);
+  return <>Da prods</>;
 }
