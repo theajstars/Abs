@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
+import NavActions from "./NavActions";
 
 export default function Products() {
   useEffect(() => {}, []);
-  return <>Da prods</>;
+  return (
+    <>
+      <h1>Know me</h1>
+    </>
+  );
 }

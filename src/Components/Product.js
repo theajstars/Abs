@@ -4,7 +4,10 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import "../Assets/CSS/Product.css";
 import SearchBox from "./SearchBox";
+import { fetchCart } from "./Auth/FetchUserData";
+import NavActions from "./NavActions";
 export default function Product() {
+  const token = Cookies.get("ud");
   const [product, setProduct] = useState({
     id: "",
     name: "",
@@ -21,6 +24,8 @@ export default function Product() {
   const [numberInCart, updateNumberInCart] = useState(0);
 
   const [copiedResponseMessage, setCopiedResponseMessage] = useState("");
+  const [cart, updateCart] = useState([]);
+
   function fetchProductInfo() {
     var url = new URL(window.location.href);
     const lastIndex = url.pathname.lastIndexOf("/");
@@ -47,20 +52,22 @@ export default function Product() {
           }
         )
         .then((res) => {
-          console.log(res);
           if (res.data.inCart) {
             updateNumberInCart(res.data.inCart.length);
           }
         });
-    } else {
-      console.log("Not logged in");
     }
   }
   useEffect(() => {
-    console.log(product);
     fetchProductInfo();
     findProductInCart();
+    if (token !== undefined) {
+      fetchCart().then((res) => {
+        updateCart(res.cart);
+      });
+    }
   }, []);
+
   useEffect(() => {
     if (product.id !== "") {
       findProductInCart();
@@ -70,17 +77,24 @@ export default function Product() {
   function formatPrice(price) {
     return parseInt(price).toLocaleString();
   }
+
   function addProductToCart() {
-    axios
-      .post(
-        "http://localhost:8080/product/cart/add",
-        { product_id: product.id, product_name: product.name },
-        { headers: { "x-access-token": Cookies.get("ud") } }
-      )
-      .then((res) => {
-        console.log(res);
-        findProductInCart();
-      });
+    if (token !== undefined) {
+      axios
+        .post(
+          "http://localhost:8080/product/cart/add",
+          { product_id: product.id, product_name: product.name },
+          { headers: { "x-access-token": Cookies.get("ud") } }
+        )
+        .then((res) => {
+          findProductInCart();
+          fetchCart().then((res) => {
+            updateCart(res.cart);
+          });
+        });
+    } else {
+      window.location.href = "/login";
+    }
   }
   function removeProductFromCart() {
     axios
@@ -90,8 +104,10 @@ export default function Product() {
         { headers: { "x-access-token": Cookies.get("ud") } }
       )
       .then((res) => {
-        console.log(res);
         findProductInCart();
+        fetchCart().then((res) => {
+          updateCart(res.cart);
+        });
       });
   }
   function shareProduct() {
@@ -103,6 +119,7 @@ export default function Product() {
   return (
     <>
       <SearchBox />
+      <NavActions cart={cart} />
       <Container maxWidth="md">
         <div className="product-top-side">
           <img src={product.image} alt="" className="product-top-left-image" />
@@ -221,6 +238,16 @@ export default function Product() {
                     alt=""
                     className="related-product-image"
                   />
+                  <div className="home-product-details">
+                    <span className="home-product-name">
+                      {relatedProduct.name.length <= 35
+                        ? relatedProduct.name
+                        : `${relatedProduct.name.substring(0, 35)}...`}
+                    </span>
+                    <span className="home-product-price">
+                      {relatedProduct.price}
+                    </span>
+                  </div>
                 </a>
               </Grid>
             );

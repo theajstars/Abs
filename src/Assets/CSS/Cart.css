@@ -1,0 +1,106 @@
+@import url("./cart_results.css");
+.cart-container {
+  margin-top: 130px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+}
+.cart-products {
+  display: flex;
+  flex-direction: column;
+}
+.cart-product {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: #fcfcfc;
+  box-shadow: 0px 0px 4px -1px rgba(116, 111, 111, 0.25);
+  max-width: 700px;
+  height: 150px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+.cart-product-image {
+  width: 120px;
+  height: 120px;
+}
+.cart-product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 500px;
+  padding: 15px;
+}
+.cart-product-name {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 17px;
+  margin-bottom: 7px;
+}
+.cart-product-vendor {
+  width: fit-content;
+  padding: 2px 5px;
+  height: 20px;
+  background: #746f6f;
+  color: #fcfcfc;
+  margin-bottom: 7px;
+}
+.cart-product-price {
+  font-family: "Roboto Mono", monospace;
+  font-size: 20px;
+  font-weight: 500;
+}
+.cart-product-actions {
+  background: rgba(116, 111, 111, 0.1);
+  min-width: 100px;
+  box-sizing: border-box;
+  padding: 15px 7px;
+}
+.top-cart-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.cart-action {
+  font-size: 16px;
+  box-sizing: border-box;
+  margin: 0px 0px;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.12s;
+  height: 25px;
+  width: 25px;
+  border: 0px;
+  outline: 0px;
+}
+.top-cart-action {
+  color: #2b418d;
+  background-color: transparent;
+}
+.bottom-cart-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+.modify-cart-action {
+  background: rgba(116, 111, 111, 0.4);
+}
+.modify-cart-action:hover {
+  background: rgba(116, 111, 111, 0.6);
+}
+.cart-product-count {
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 17px;
+}

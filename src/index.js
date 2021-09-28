@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { Route, BrowserRouter as Router } from "react-router-dom";
 
 import App from "./App";
+import Cart from "./Components/Auth/Cart";
 import Login from "./Components/Auth/Login";
 import Register from "./Components/Auth/Register";
 import NavActions from "./Components/NavActions";
@@ -13,10 +14,11 @@ import Sidebar from "./Components/Sidebar";
 ReactDOM.render(
   <Router>
     <Sidebar />
-    <NavActions />
+    {/* <NavActions /> */}
     <Route exact path="/" component={App} />
     <Route exact path="/register" component={Register} />
     <Route exact path="/login" component={Login} />
+    <Route exact path="/cart" component={Cart} />
     <Route path="/products" component={Products} />
     <Route path="/product/" component={Product} />
   </Router>,

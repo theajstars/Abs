@@ -79,8 +79,9 @@
 }
 
 .related-product-image {
-  height: 150px;
-  width: 150px;
+  height: 100px;
+  width: 100px;
+  margin-bottom: 5px;
 }
 .top-right-copied-response {
   border: 1px solid #747474;

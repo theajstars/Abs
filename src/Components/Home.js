@@ -2,14 +2,25 @@ import { Container, Grid } from "@mui/material";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
 import "../Assets/CSS/Home.css";
+import { fetchCart } from "./Auth/FetchUserData";
+import NavActions from "./NavActions";
+
 import SearchBox from "./SearchBox";
+
 export default function Home() {
   const [products, setProducts] = useState([]);
+  const [cart, updateCart] = useState([]);
+
   useEffect(() => {
     axios.get("http://localhost:8080/products/home").then((res) => {
       console.log(res.data);
       setProducts(res.data.products);
+    });
+    fetchCart().then((res) => {
+      updateCart(res.cart);
+      console.log(res.cart);
     });
   }, []);
   function formatPrice(price) {
@@ -18,6 +29,7 @@ export default function Home() {
   return (
     <>
       <SearchBox />
+      <NavActions cart={cart} />
       <Container maxWidth="lg">
         <div className="home-container">
           <Grid
