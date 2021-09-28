@@ -10,6 +10,9 @@ export default function Cart() {
   const token = Cookies.get("ud");
   const [cart, updateCart] = useState([]);
   const [checkout, updateCheckout] = useState([]);
+  const [totalPrice, updateTotalPrice] = useState(0);
+  const [shipping, updateShipping] = useState(0);
+
   useEffect(() => {
     if (token !== undefined) {
       fetchCart().then((res) => {
@@ -19,16 +22,27 @@ export default function Cart() {
           updateCart(res.cart);
         }
       });
-
-      axios
-        .get("http://localhost:8080/user/cart/checkout", {
-          headers: { "x-access-token": token },
-        })
-        .then((res) => {
-          console.log(res);
-          updateCheckout(res.data.checkoutCart);
-        });
     }
+  }, []);
+  useEffect(() => {
+    if (token !== undefined) {
+      var total = 0;
+      checkout.map((checkoutItem) => {
+        var itemCost = checkoutItem.price * checkoutItem.product_count;
+        total += itemCost;
+      });
+      updateTotalPrice(total + shipping);
+    }
+  }, [checkout]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/user/cart/checkout", {
+        headers: { "x-access-token": token },
+      })
+      .then((res) => {
+        updateCheckout(res.data.checkoutCart);
+      });
   }, [cart]);
 
   function addProductToCart(productID, productName) {
@@ -51,8 +65,8 @@ export default function Cart() {
   function removeProductFromCart(productID) {
     axios
       .post(
-        "http://localhost:8080/product/cart/remove",
-        { product_id: productID },
+        "http://localhost:8080/product/checkout/remove",
+        { product_id: productID.product_id },
         { headers: { "x-access-token": Cookies.get("ud") } }
       )
       .then((res) => {
@@ -93,7 +107,11 @@ export default function Cart() {
                       {checkoutItem.vendor}
                     </span>
                     <span className="cart-product-price">
-                      ₦{checkoutItem.price.toLocaleString()}
+                      ₦
+                      {(
+                        checkoutItem.price * checkoutItem.product_count
+                      ).toLocaleString()}
+                      {/* {checkoutItem.product_count} */}
                     </span>
                   </div>
                   <div className="cart-product-actions">
@@ -121,9 +139,7 @@ export default function Cart() {
                         {checkoutItem.product_count}
                       </span>
                       <button
-                        onClick={() =>
-                          removeProductFromCart(checkoutItem.product_id)
-                        }
+                        onClick={() => removeProductFromCart(checkoutItem)}
                         disabled={
                           checkoutItem.product_count === 1 ? true : false
                         }
@@ -151,11 +167,11 @@ export default function Cart() {
             </span>
             <div className="cart-row">
               <span className="cart-result-item">Shipping</span>
-              <span className="cart-product-price">₦98540</span>
+              <span className="cart-product-price">₦{shipping}</span>
             </div>
             <div className="cart-row">
               <span className="cart-result-item">Total</span>
-              <span className="cart-product-price">₦98540</span>
+              <span className="cart-product-price">₦{totalPrice}</span>
             </div>
             <button className="continue-btn checkout-order">
               Proceed to Checkout
