@@ -1,0 +1,25 @@
+@media screen and (max-width: 600px) {
+  div.product-top-side {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 450px) {
+  a.home-product {
+    width: 165px;
+    height: 195px;
+  }
+  span.home-product-name {
+    font-size: 13.5px;
+    line-height: 17px;
+  }
+  img.home-product-image {
+    width: 90px;
+    height: 90px;
+  }
+}
+@media screen and (max-width: 420px) {
+  img.product-top-left-image {
+    width: 350px;
+    height: 350px;
+  }
+}

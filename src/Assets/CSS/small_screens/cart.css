@@ -1,0 +1,10 @@
+@media screen and (max-width: 1140px) {
+  div.cart-container {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 600px) {
+  span.cart-product-name {
+    font-size: 15px;
+  }
+}

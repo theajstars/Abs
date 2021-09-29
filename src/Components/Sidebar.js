@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import axios from "axios";
+
 import "../Assets/CSS/Sidebar.css";
 import {
   computingCategory,
@@ -10,6 +13,21 @@ import {
   largeAppliancesCategory,
 } from "./ProductCategories";
 export default function Sidebar() {
+  const token = Cookies.get("ud");
+  useEffect(() => {
+    if (token !== undefined) {
+      axios
+        .get("http://localhost:8080/isUserAuth", {
+          headers: { "x-access-token": token },
+        })
+        .then((res) => {
+          console.log(res);
+          if (!res.data.auth) {
+            Cookies.remove("ud");
+          }
+        });
+    }
+  }, []);
   const [currentSubcategoryHeader, seturrentSubcategoryHeader] = useState("");
   const [currentSubcategory, setCurrentSubcategory] = useState([]);
   const [containerDisplay, setContainerDisplay] = useState("-270px");

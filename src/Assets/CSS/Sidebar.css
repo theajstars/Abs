@@ -1,3 +1,4 @@
+@import url("./small_screens/sidebar.css");
 .sidebar-container {
   position: fixed;
   top: 0;
@@ -8,7 +9,7 @@
   box-sizing: border-box;
   padding: 30px 35px;
   margin: 0px;
-  z-index: 99;
+  z-index: 991;
 }
 .product-categories {
   display: flex;
@@ -35,7 +36,7 @@
   background: #fcfcfc;
   box-shadow: 4px 0px 10px -3px rgba(0, 0, 0, 0.25);
   position: fixed;
-  z-index: 99;
+  z-index: 999;
   top: 0px;
   left: 270px;
   height: 100vh;
@@ -94,6 +95,7 @@
 }
 .close-sub {
   left: 490px;
+  z-index: 9999;
 }
 .open-menu {
   top: 13px;

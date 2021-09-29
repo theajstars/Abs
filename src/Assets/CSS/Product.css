@@ -1,3 +1,4 @@
+@import url("./small_screens/product.css");
 .product-top-side {
   display: flex;
   flex-direction: row;
@@ -69,7 +70,7 @@
   border: 1px solid #747474;
   box-sizing: border-box;
   border-radius: 10px 0px;
-  width: 200px;
+  width: 180px;
   height: 200px;
   display: flex;
   flex-direction: column;

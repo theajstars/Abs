@@ -1,4 +1,5 @@
 @import url("./cart_results.css");
+@import url("./small_screens/cart.css");
 .cart-container {
   margin-top: 130px;
   display: flex;

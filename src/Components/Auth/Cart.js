@@ -13,6 +13,8 @@ export default function Cart() {
   const [totalPrice, updateTotalPrice] = useState(0);
   const [shipping, updateShipping] = useState(0);
 
+  const [deliveryAddress, setDeliveryAddress] = useState("");
+
   useEffect(() => {
     if (token !== undefined) {
       fetchCart().then((res) => {
@@ -31,7 +33,9 @@ export default function Cart() {
         var itemCost = checkoutItem.price * checkoutItem.product_count;
         total += itemCost;
       });
-      updateTotalPrice(total + shipping);
+      const Ships = Math.round(total / 15);
+      updateShipping(Ships);
+      updateTotalPrice((total + shipping).toLocaleString());
     }
   }, [checkout]);
 
@@ -85,7 +89,7 @@ export default function Cart() {
           <div className="cart-products">
             {checkout.map((checkoutItem) => {
               return (
-                <div className="cart-product">
+                <div className="cart-product" key={checkoutItem.product_id}>
                   <div
                     style={{
                       display: "flex",
@@ -160,11 +164,10 @@ export default function Cart() {
               placeholder="Delivery address..."
               className="delivery-address-input"
               spellCheck="false"
+              value={deliveryAddress}
+              onChange={(e) => setDeliveryAddress(e.target.value)}
             />
-            <span className="delivery-address">
-              20 Oxcross Street, of Mademoiselle avenue, Juniper lane,
-              Vancouver, Canada
-            </span>
+            <span className="delivery-address">{deliveryAddress}</span>
             <div className="cart-row">
               <span className="cart-result-item">Shipping</span>
               <span className="cart-product-price">₦{shipping}</span>
