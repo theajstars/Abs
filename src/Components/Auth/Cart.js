@@ -170,7 +170,9 @@ export default function Cart() {
             <span className="delivery-address">{deliveryAddress}</span>
             <div className="cart-row">
               <span className="cart-result-item">Shipping</span>
-              <span className="cart-product-price">₦{shipping}</span>
+              <span className="cart-product-price">
+                ₦{shipping.toLocaleString()}
+              </span>
             </div>
             <div className="cart-row">
               <span className="cart-result-item">Total</span>

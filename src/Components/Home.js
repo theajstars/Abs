@@ -46,7 +46,11 @@ export default function Home() {
             {products.map((product) => {
               return (
                 <Grid item xs={6} sm={4} md={3} lg={3}>
-                  <Link to={`/product/${product.id}`} className="home-product">
+                  <Link
+                    to={`/product/${product.id}`}
+                    className="home-product"
+                    key={product.id}
+                  >
                     <img
                       src={product.image}
                       alt=""
