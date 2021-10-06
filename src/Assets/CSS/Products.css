@@ -22,7 +22,7 @@
   transition: 0.12s;
 }
 .products-product:hover {
-  transform: scale(1.05);
+  box-shadow: 0px 0px 45px -20px #746f6f;
 }
 .products-product-image {
   width: 170px;
@@ -44,4 +44,23 @@
 }
 .products-products-btn {
   margin: 0px !important;
+}
+.product-top-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.modify-products-btn {
+  width: 56px;
+  margin: 0px;
+}
+@media screen and (max-width: 400px) {
+  a.products-product {
+    width: 180px;
+    height: 350px;
+  }
+  img.products-product-image {
+    width: 160px;
+  }
 }

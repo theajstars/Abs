@@ -19,3 +19,29 @@ body {
 .none-display {
   display: none;
 }
+.empty-crate {
+  position: absolute;
+  width: 350px;
+  height: 55px;
+  left: 50%;
+  top: 130px;
+  margin-left: -175px;
+  border: 1px solid #2b418d;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.empty-icon {
+  color: #2b418d;
+  font-size: 25px;
+  margin-right: 3px;
+}
+.empty-text {
+  color: #2b418d;
+  font-weight: 500;
+  font-size: 18px;
+  margin-left: 3px;
+}

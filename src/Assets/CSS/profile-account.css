@@ -1,0 +1,76 @@
+.account-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  height: 250px;
+}
+.profile-form-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+.profile-form-input {
+  width: 46.5%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.change-password {
+  border: 1.5px solid #746f6f;
+  background-color: #746f6f;
+  box-sizing: border-box;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fcfcfc;
+  width: fit-content;
+  font-size: 17px;
+  padding: 8px 25px;
+  transition: 0.12s;
+  cursor: pointer;
+}
+.change-password:hover,
+.logout:hover {
+  background-color: transparent;
+  color: #000;
+}
+
+.newsletter {
+  font-size: 18px;
+}
+.submit-profile {
+  border: 1pt solid #2b418d;
+  background-color: #2b418d;
+  color: #fcfcfc;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 130px;
+  font-size: 17px;
+  box-sizing: border-box;
+  padding: 8px;
+  margin: 0px;
+  transition: 0.12s;
+  cursor: pointer;
+}
+.submit-profile:hover {
+  box-shadow: 0px 0px 40px -10px #243675a4;
+  background-color: #1c2b63;
+}
+@media screen and (max-width: 450px) {
+  div.profile-form-row {
+    flex-direction: column;
+  }
+  input.profile-form-input {
+    width: 100%;
+  }
+  div.account-container {
+    height: 300px;
+  }
+  span.logout {
+    width: 90px;
+  }
+}

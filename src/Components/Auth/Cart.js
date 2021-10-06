@@ -1,10 +1,12 @@
 import { Container } from "@mui/material";
 import axios from "axios";
 import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../Assets/CSS/Cart.css";
 import NavActions from "../NavActions";
+import { toggleProductInSaved } from "../Product";
 import SearchBox from "../SearchBox";
+import StripeContainer from "../StripeContainer";
 import { fetchCart } from "./FetchUserData";
 export default function Cart() {
   const token = Cookies.get("ud");
@@ -14,6 +16,7 @@ export default function Cart() {
   const [shipping, updateShipping] = useState(0);
 
   const [deliveryAddress, setDeliveryAddress] = useState("");
+  const [showPaymentModal, togglePaymentModal] = useState(false);
 
   useEffect(() => {
     if (token !== undefined) {
@@ -40,13 +43,16 @@ export default function Cart() {
   }, [checkout]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/user/cart/checkout", {
-        headers: { "x-access-token": token },
-      })
-      .then((res) => {
-        updateCheckout(res.data.checkoutCart);
-      });
+    if (token !== undefined) {
+      //User is logged in
+      axios
+        .get("http://localhost:8080/user/cart/checkout", {
+          headers: { "x-access-token": token },
+        })
+        .then((res) => {
+          updateCheckout(res.data.checkoutCart);
+        });
+    }
   }, [cart]);
 
   function addProductToCart(productID, productName) {
@@ -67,26 +73,56 @@ export default function Cart() {
     }
   }
   function removeProductFromCart(productID) {
-    axios
-      .post(
-        "http://localhost:8080/product/checkout/remove",
-        { product_id: productID.product_id },
-        { headers: { "x-access-token": Cookies.get("ud") } }
-      )
-      .then((res) => {
-        fetchCart().then((res) => {
-          updateCart(res.cart);
+    if (token !== undefined) {
+      axios
+        .post(
+          "http://localhost:8080/product/checkout/remove",
+          { product_id: productID.product_id },
+          { headers: { "x-access-token": Cookies.get("ud") } }
+        )
+        .then((res) => {
+          fetchCart().then((res) => {
+            updateCart(res.cart);
+          });
         });
-      });
+    } else {
+      window.location.href = "/login";
+    }
   }
-
+  function showModal() {
+    if (deliveryAddress.length > 0) {
+      togglePaymentModal(true);
+    }
+  }
   return (
     <>
       <NavActions cart={cart} />
       <SearchBox />
+      <div
+        className={`bg-overlay`}
+        style={{ display: `${showPaymentModal ? "" : "none"}` }}
+        onClick={() => togglePaymentModal(false)}
+      ></div>
+      <div
+        className="stripe-container"
+        style={{ display: `${showPaymentModal ? "block" : "none"}` }}
+        // onClick={() => togglePaymentModal(true)}
+      >
+        <StripeContainer />
+      </div>
       <Container maxWidth="lg">
         <div className="cart-container">
           <div className="cart-products">
+            {checkout.length === 0 && (
+              <>
+                <div className="empty-crate">
+                  <span className="empty-icon">
+                    <i className="far fa-exclamation-circle"></i>
+                  </span>
+                  <p className="empty-text">There are no items in your cart!</p>
+                </div>
+              </>
+            )}
             {checkout.map((checkoutItem) => {
               return (
                 <div className="cart-product" key={checkoutItem.product_id}>
@@ -120,7 +156,12 @@ export default function Cart() {
                   </div>
                   <div className="cart-product-actions">
                     <div className="top-cart-actions">
-                      <span className="cart-action top-cart-action">
+                      <span
+                        className="cart-action top-cart-action"
+                        onClick={() =>
+                          toggleProductInSaved(checkoutItem.product_id)
+                        }
+                      >
                         <i className="far fa-heart"></i>
                       </span>
                       <span className="cart-action top-cart-action">
@@ -158,7 +199,10 @@ export default function Cart() {
             })}
           </div>
 
-          <div className="cart-results">
+          <div
+            className="cart-results"
+            style={{ display: `${checkout.length === 0 ? "none" : "flex"}` }}
+          >
             <input
               type="text"
               placeholder="Delivery address..."
@@ -178,7 +222,10 @@ export default function Cart() {
               <span className="cart-result-item">Total</span>
               <span className="cart-product-price">₦{totalPrice}</span>
             </div>
-            <button className="continue-btn checkout-order">
+            <button
+              className="continue-btn checkout-order"
+              onClick={() => showModal()}
+            >
               Proceed to Checkout
             </button>
           </div>

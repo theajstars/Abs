@@ -1,0 +1,57 @@
+@import url("./profile-account.css");
+.profile-container {
+  margin-top: 80px;
+}
+.profile-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.profile-nav-left {
+  display: flex;
+  flex-direction: row;
+}
+.profile-link {
+  border: 1pt solid #2b418d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 115px;
+  font-size: 17px;
+  box-sizing: border-box;
+  padding: 8px;
+  margin: 0px;
+  transition: 0.12s;
+  cursor: pointer;
+}
+.active-profile-link {
+  background-color: #2b418d;
+  color: #fcfcfc;
+}
+.inactive-profile-link {
+  color: #2b418d;
+  background-color: #ffffff;
+}
+.edit-account {
+  border-radius: 10px 0px 0px 10px;
+}
+.orders {
+  border-radius: 0px 10px 10px 0px;
+}
+.logout {
+  background: #746f6f;
+  border: 1pt solid #746f6f;
+
+  border-radius: 0px 10px 10px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 115px;
+  font-size: 17px;
+  box-sizing: border-box;
+  padding: 8px;
+  margin: 0px;
+  transition: 0.12s;
+  cursor: pointer;
+  color: #fcfcfc;
+}

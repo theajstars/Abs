@@ -6,6 +6,18 @@ import "../Assets/CSS/Product.css";
 import SearchBox from "./SearchBox";
 import { fetchCart } from "./Auth/FetchUserData";
 import NavActions from "./NavActions";
+
+export function toggleProductInSaved(productID) {
+  axios
+    .post(
+      "http://localhost:8080/product/saved/toggle",
+      { productID },
+      { headers: { "x-access-token": Cookies.get("ud") } }
+    )
+    .then((res) => {
+      console.log("Saved result: ", res);
+    });
+}
 export default function Product() {
   const token = Cookies.get("ud");
   const [product, setProduct] = useState({

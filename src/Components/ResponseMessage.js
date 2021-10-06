@@ -10,11 +10,6 @@ export default function ResponseMessage({ type, message, showResponse }) {
     } else {
       iconRef.current.innerHTML = '<i class="far fa-check-circle"></i>';
     }
-    // if (showResponse) {
-    //   setAnimationMovement(360);
-    // } else {
-    //   setAnimationMovement(0);
-    // }
   }, []);
   return (
     <>

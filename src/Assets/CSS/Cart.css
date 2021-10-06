@@ -105,3 +105,68 @@
   font-weight: 500;
   font-size: 17px;
 }
+.bg-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  padding: 0px;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.8);
+  /* display: none; */
+}
+.stripe-container {
+  position: absolute;
+  width: 350px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  margin-left: -175px;
+  margin-top: -100px;
+  background-color: #fcfcfc;
+  box-sizing: border-box;
+  padding: 20px 40px;
+  z-index: 99999;
+}
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: inherit;
+}
+.card-label {
+  font-size: 20px;
+  font-weight: 500;
+  color: rgb(39, 39, 39);
+}
+.cardholder {
+  border: none;
+  outline: none;
+  font-family: "Jost", sans-serif;
+  font-size: 18px;
+  margin-left: -2px;
+}
+.cardholder-error,
+.cardholder-error::placeholder {
+  color: #eb1c26;
+}
+.pay-btn {
+  background-color: #2b418d;
+  outline: none;
+  border: none;
+  width: 120px;
+  font-size: 20px;
+  font-family: "Jost", sans-serif;
+  padding: 4px;
+  /* margin-top: 30px; */
+  cursor: pointer;
+  color: #fcfcfc;
+  box-shadow: 0px 0px 43px -10px #746f6f;
+  transition: 0.12s;
+}
+.pay-btn:hover {
+  box-shadow: 0px 0px 53px -5px #746f6f;
+}

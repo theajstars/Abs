@@ -36,6 +36,9 @@ export default function Login() {
 
     const data = await res.json();
     console.log(data);
+    if (data.token) {
+      Cookies.set("ud", data.token);
+    }
   };
   function googleLoginFailure() {}
 

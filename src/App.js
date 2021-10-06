@@ -1,3 +1,4 @@
+import axios from "axios";
 import Cookies from "js-cookie";
 import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
@@ -7,15 +8,28 @@ import Home from "./Components/Home";
 function App() {
   const token = Cookies.get("ud");
   useEffect(() => {}, []);
-  if (token !== undefined) {
-    return (
-      <>
-        <Home />
-      </>
-    );
-  } else {
-    return <Redirect to="/register" />;
-  }
+  useEffect(() => {
+    if (token !== undefined) {
+      axios
+        .get("http://localhost:8080/isUserAuth", {
+          headers: { "x-access-token": token },
+        })
+        .then((res) => {
+          console.log(res);
+          if (!res.data.auth) {
+            Cookies.remove("ud");
+          }
+        });
+    }
+  }, []);
+  return (
+    <>
+      <Home />
+    </>
+  );
+  // } else {
+  //   return <Redirect to="/register" />;
+  // }
 }
 
 export default App;

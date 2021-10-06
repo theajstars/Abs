@@ -11,6 +11,7 @@ import Saved from "./Components/Auth/Saved";
 import Product from "./Components/Product";
 import Products from "./Components/Products";
 import Sidebar from "./Components/Sidebar";
+import StripeContainer from "./Components/StripeContainer";
 
 ReactDOM.render(
   <Router>
@@ -24,6 +25,7 @@ ReactDOM.render(
     <Route exact path="/saved" component={Saved} />
     <Route path="/products" component={Products} />
     <Route path="/product/" component={Product} />
+    <Route exact path="/stripe" component={StripeContainer} />
   </Router>,
   document.getElementById("root")
 );
