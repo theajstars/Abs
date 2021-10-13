@@ -34,36 +34,31 @@ export default function Profile() {
     document.title = "Profile";
     if (token !== undefined) {
       axios
-        .get("http://localhost:8080/user/cart/checkout", {
+        .get("https://abs-shop.herokuapp.com/user/cart/checkout", {
           headers: { "x-access-token": token },
         })
         .then((res) => {
           // updateCart(res.data.checkoutCart);
           fetchCart().then((res) => {
             updateCart(res.cart);
-            console.log(res.cart);
           });
-          console.log(res.data.checkoutCart);
         });
       // Fetch user profile
       axios
-        .get("http://localhost:8080/user/profile", {
+        .get("https://abs-shop.herokuapp.com/user/profile", {
           headers: { "x-access-token": token },
         })
         .then((res) => {
           updateProfile(res.data.profile);
-          console.log(res.data);
           toggleNewsletter(res.data.newsletter);
         });
 
       //Fetch user Orders
       axios
-        .get("http://localhost:8080/orders", {
+        .get("https://abs-shop.herokuapp.com/orders", {
           headers: { "x-access-token": token },
         })
         .then((res) => {
-          console.clear();
-          console.log(res.data);
           if (res.data.orders) {
             updateOrders(res.data.orders);
           }
@@ -81,7 +76,6 @@ export default function Profile() {
     }, 2500);
   }
   function submitProfile() {
-    console.log(profile);
     function validateEmail(email) {
       const re =
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -92,12 +86,11 @@ export default function Profile() {
     } else {
       axios
         .post(
-          "http://localhost:8080/profile/update",
+          "https://abs-shop.herokuapp.com/profile/update",
           { profile, newsletter },
           { headers: { "x-access-token": token } }
         )
         .then((res) => {
-          console.log(res);
           if (res.data.updated) {
             showResponseMessage("success", "Your profile has been updated!");
           } else {
@@ -108,11 +101,10 @@ export default function Profile() {
   }
   function resetPassword() {
     axios
-      .get("http://localhost:8080/password/reset", {
+      .get("https://abs-shop.herokuapp.com/password/reset", {
         headers: { "x-access-token": token },
       })
       .then((res) => {
-        console.log(res.data);
         if (res.data.reset_init) {
           updateValidToken(res.data.token);
           const templateParams = {
@@ -128,7 +120,6 @@ export default function Profile() {
             )
             .then(
               function (response) {
-                console.log("SUCCESS!", response.status, response.text);
                 showResponseMessage(
                   "success",
                   "Password reset link has been sent!"
@@ -140,9 +131,7 @@ export default function Profile() {
                   setConfirmPassword("");
                 }, 800);
               },
-              function (error) {
-                console.log("FAILED...", error);
-              }
+              function (error) {}
             );
         } else {
           showResponseMessage("error", "Please try again!");
@@ -161,12 +150,11 @@ export default function Profile() {
         //Token is valid and passwords match
         axios
           .post(
-            "http://localhost:8080/password/update",
+            "https://abs-shop.herokuapp.com/password/update",
             { password: newPassword },
             { headers: { "x-access-token": Cookies.get("ud") } }
           )
           .then((res) => {
-            console.log(res);
             if (res.data.updated) {
               showResponseMessage("success", "Password has been changed!");
             }

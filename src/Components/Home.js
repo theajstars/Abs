@@ -16,14 +16,12 @@ export default function Home() {
   const [cart, updateCart] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/products/home").then((res) => {
-      console.log(res.data);
+    axios.get("https://abs-shop.herokuapp.com/products/home").then((res) => {
       setProducts(res.data.products);
     });
     if (token !== undefined) {
       fetchCart().then((res) => {
         updateCart(res.cart);
-        console.log(res.cart);
       });
     }
     document.title = "Abs | Home";

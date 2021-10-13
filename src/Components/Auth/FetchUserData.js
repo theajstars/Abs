@@ -5,7 +5,7 @@ import React, { useState } from "react";
 const token = Cookies.get("ud");
 export async function fetchCart() {
   if (token !== undefined) {
-    const cart = await axios.get("http://localhost:8080/user/cart", {
+    const cart = await axios.get("https://abs-shop.herokuapp.com/user/cart", {
       headers: { "x-access-token": token },
     });
     return await cart.data;

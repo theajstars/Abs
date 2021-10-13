@@ -11,11 +11,10 @@ function App() {
   useEffect(() => {
     if (token !== undefined) {
       axios
-        .get("http://localhost:8080/isUserAuth", {
+        .get("https://abs-shop.herokuapp.com/isUserAuth", {
           headers: { "x-access-token": token },
         })
         .then((res) => {
-          console.log(res);
           if (!res.data.auth) {
             Cookies.remove("ud");
           }

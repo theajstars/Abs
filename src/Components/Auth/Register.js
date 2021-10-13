@@ -31,18 +31,20 @@ export default function Register() {
   const [responseText, setResponseText] = useState("");
 
   const googleLoginSuccess = async (googleData) => {
-    const res = await fetch("http://localhost:8080/api/v1/auth/google", {
-      method: "POST",
-      body: JSON.stringify({
-        token: googleData.tokenId,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      "https://abs-shop.herokuapp.com/api/v1/auth/google",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          token: googleData.tokenId,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const data = await res.json();
-    console.log(data);
   };
 
   const googleLoginFailure = async (googleData) => {};
@@ -89,18 +91,19 @@ export default function Register() {
         email: email,
         password: password,
       };
-      axios.post("http://localhost:8080/user/register", user).then((res) => {
-        console.log(res.data);
-        if (res.data.userExists) {
-          // If user already exists
-          showResponseMessage("error", "User already exists!");
-        }
-        if (res.data.auth) {
-          showResponseMessage("success", "Account created!");
-          const token = res.data.token;
-          Cookies.set("ud", token);
-        }
-      });
+      axios
+        .post("https://abs-shop.herokuapp.com/user/register", user)
+        .then((res) => {
+          if (res.data.userExists) {
+            // If user already exists
+            showResponseMessage("error", "User already exists!");
+          }
+          if (res.data.auth) {
+            showResponseMessage("success", "Account created!");
+            const token = res.data.token;
+            Cookies.set("ud", token);
+          }
+        });
     }
   }
   return (

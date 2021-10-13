@@ -22,7 +22,7 @@ export default function Products() {
     const length = url.pathname.length;
     const category = url.pathname.substring(lastIndex + 1, length);
     axios
-      .get(`http://localhost:8080/products/categories/${category}`)
+      .get(`https://abs-shop.herokuapp.com/products/categories/${category}`)
       .then((res) => {
         updateProducts(res.data.products);
       });
@@ -34,7 +34,7 @@ export default function Products() {
       });
       // Get checkout items
       axios
-        .get("http://localhost:8080/user/cart/checkout", {
+        .get("https://abs-shop.herokuapp.com/user/cart/checkout", {
           headers: { "x-access-token": token },
         })
         .then((res) => {

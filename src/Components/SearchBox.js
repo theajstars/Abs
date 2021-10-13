@@ -16,10 +16,8 @@ export default function SearchBox() {
       setSearchError(false);
       setSearchResults([]);
       axios
-        .post("http://localhost:8080/search", { term: searchText })
+        .post("https://abs-shop.herokuapp.com/search", { term: searchText })
         .then((res) => {
-          // console.clear();
-          console.log(res.data.results);
           setSearchResults(res.data.results);
           setSearchActive(true);
         });
@@ -45,10 +43,7 @@ export default function SearchBox() {
             value={searchText}
             placeholder="Find products"
             spellCheck="false"
-            onsearch={() => {
-              console.clear();
-              console.log("I am MOANA!");
-            }}
+            onsearch={() => {}}
             onChange={(e) => updateSearchText(e.target.value)}
           />
           <span className="search-button" onClick={() => handleSearch()}>

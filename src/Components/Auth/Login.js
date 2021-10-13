@@ -24,18 +24,20 @@ export default function Login() {
   const [responseType, setResponseType] = useState(null);
   const [responseText, setResponseText] = useState("");
   const googleLoginSuccess = async (googleData) => {
-    const res = await fetch("http://localhost:8080/api/v1/auth/google", {
-      method: "POST",
-      body: JSON.stringify({
-        token: googleData.tokenId,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      "https://abs-shop.herokuapp.com/api/v1/auth/google",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          token: googleData.tokenId,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const data = await res.json();
-    console.log(data);
     if (data.token) {
       Cookies.set("ud", data.token);
       window.location.href = "/";
@@ -74,17 +76,18 @@ export default function Login() {
         email: email,
         password: password,
       };
-      axios.post("http://localhost:8080/user/login", user).then((res) => {
-        console.log(res.data);
-        const auth = res.data.auth;
-        const token = res.data.token;
-        if (auth) {
-          Cookies.set("ud", token);
-          showResponseMessage("success", "Login successful!");
-        } else {
-          showResponseMessage("error", "Invalid username or password!");
-        }
-      });
+      axios
+        .post("https://abs-shop.herokuapp.com/user/login", user)
+        .then((res) => {
+          const auth = res.data.auth;
+          const token = res.data.token;
+          if (auth) {
+            Cookies.set("ud", token);
+            showResponseMessage("success", "Login successful!");
+          } else {
+            showResponseMessage("error", "Invalid username or password!");
+          }
+        });
     }
   }
   return (

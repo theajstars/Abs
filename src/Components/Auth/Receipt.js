@@ -38,15 +38,13 @@ export default function Receipt() {
       const index = path.indexOf("transaction/");
       const transactionID = path.substring(index + 12, path.length + 1);
       //Fetch receipt details
-      console.log(transactionID);
       axios
         .post(
-          "http://localhost:8080/transaction",
+          "https://abs-shop.herokuapp.com/transaction",
           { transactionID },
           { headers: { "x-access-token": token } }
         )
         .then((res) => {
-          console.log(res.data.transaction);
           const trans = res.data.transaction;
           if (trans.length === 0) {
             //Transaction does not exist

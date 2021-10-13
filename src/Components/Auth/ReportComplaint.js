@@ -39,7 +39,6 @@ export default function ReportComplaint({ transaction_id, user_id }) {
     }, 2500);
   }
   function submitComplaint() {
-    console.clear();
     if (complaintMessage.length === 0) {
       showResponseMessage("error", "Please enter your complaint!");
     } else {
@@ -50,11 +49,10 @@ export default function ReportComplaint({ transaction_id, user_id }) {
         user_id: user_id,
       };
       axios
-        .post("http://localhost:8080/report", complaintOptions, {
+        .post("https://abs-shop.herokuapp.com/report", complaintOptions, {
           headers: { "x-access-token": token },
         })
         .then((res) => {
-          console.log(res.data);
           if (res.data.inserted) {
             showResponseMessage("success", "Your complaint was submitted!");
           } else {

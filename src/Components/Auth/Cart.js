@@ -48,7 +48,7 @@ export default function Cart() {
     if (token !== undefined) {
       //User is logged in
       axios
-        .get("http://localhost:8080/user/cart/checkout", {
+        .get("https://abs-shop.herokuapp.com/user/cart/checkout", {
           headers: { "x-access-token": token },
         })
         .then((res) => {
@@ -61,7 +61,7 @@ export default function Cart() {
     if (token !== undefined) {
       axios
         .post(
-          "http://localhost:8080/product/cart/add",
+          "https://abs-shop.herokuapp.com/product/cart/add",
           { product_id: productID, product_name: productName },
           { headers: { "x-access-token": Cookies.get("ud") } }
         )
@@ -78,7 +78,7 @@ export default function Cart() {
     if (token !== undefined) {
       axios
         .post(
-          "http://localhost:8080/product/checkout/remove",
+          "https://abs-shop.herokuapp.com/product/checkout/remove",
           { product_id: productID.product_id },
           { headers: { "x-access-token": Cookies.get("ud") } }
         )
@@ -98,20 +98,17 @@ export default function Cart() {
   }
 
   function deleteAllProducts(product_ID) {
-    console.log(product_ID);
     axios
       .post(
-        "http://localhost:8080/cart/product/remove_all",
+        "https://abs-shop.herokuapp.com/cart/product/remove_all",
         { product_ID },
         { headers: { "x-access-token": token } }
       )
       .then((res) => {
-        console.clear();
-        console.log(res);
         if (res.data.removed) {
           //Product has been removed from cart
           axios
-            .get("http://localhost:8080/user/cart/checkout", {
+            .get("https://abs-shop.herokuapp.com/user/cart/checkout", {
               headers: { "x-access-token": token },
             })
             .then((res) => {

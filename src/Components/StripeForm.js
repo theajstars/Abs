@@ -45,14 +45,13 @@ export default function StripeForm() {
       });
 
       if (!error) {
-        console.log("Token generated!", paymentMethod);
         //   send token to backend
         try {
           const { id } = paymentMethod;
           const last4 = paymentMethod.card.last4;
           const cardType = paymentMethod.card.brand;
           const response = await axios.post(
-            "http://localhost:8080/cart/pay",
+            "https://abs-shop.herokuapp.com/cart/pay",
             {
               amount: totalPrice,
               id: id,
@@ -66,9 +65,6 @@ export default function StripeForm() {
 
           if (response.data.success) {
             // Payment was successful
-
-            console.log(response.data);
-            console.log("Payment successful: ", true);
             const transactionID = response.data.id;
             setReceiptAddress(`/transaction/${transactionID}`);
             showResponseMessage("success", "Payment successful!");
@@ -78,7 +74,7 @@ export default function StripeForm() {
               //Clear user cart
               //Show transaction receipt
               axios.post(
-                "http://localhost:8080/purchase/complete",
+                "https://abs-shop.herokuapp.com/purchase/complete",
                 { transactionID, cardType, last4, totalPrice },
                 { headers: { "x-access-token": Cookies.get("ud") } }
               );
@@ -92,18 +88,15 @@ export default function StripeForm() {
             setTimeout(() => {
               setShowPrevention(false);
             }, 400);
-            console.log("Payment successful: ", false);
             showResponseMessage("error", "Payment unsuccessful!");
           }
         } catch (error) {
-          console.log("Some error: ", error);
           setTimeout(() => {
             setShowPrevention(false);
           }, 400);
           showResponseMessage("error", "Payment unsuccessful!");
         }
       } else {
-        console.log(error.message);
         setTimeout(() => {
           setShowPrevention(false);
         }, 400);
@@ -160,7 +153,6 @@ export default function StripeForm() {
             Pay
             <CartConsumer>
               {(cart) => {
-                console.log("Cart: ", cart);
                 updateTotalPrice(parseInt(cart));
               }}
             </CartConsumer>

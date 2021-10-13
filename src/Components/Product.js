@@ -8,15 +8,11 @@ import { fetchCart } from "./Auth/FetchUserData";
 import NavActions from "./NavActions";
 
 export function toggleProductInSaved(productID) {
-  axios
-    .post(
-      "http://localhost:8080/product/saved/toggle",
-      { productID },
-      { headers: { "x-access-token": Cookies.get("ud") } }
-    )
-    .then((res) => {
-      console.log("Saved result: ", res);
-    });
+  axios.post(
+    "https://abs-shop.herokuapp.com/product/saved/toggle",
+    { productID },
+    { headers: { "x-access-token": Cookies.get("ud") } }
+  );
 }
 export default function Product() {
   const token = Cookies.get("ud");
@@ -45,7 +41,7 @@ export default function Product() {
     const productID = parseInt(url.pathname.substring(lastIndex + 1, length));
     setProduct({ ...product, id: productID });
     axios
-      .get(`http://localhost:8080/product/details/${productID}`)
+      .get(`https://abs-shop.herokuapp.com/product/details/${productID}`)
       .then((res) => {
         setProduct(res.data.product);
         setRelatedProducts(res.data.relatedProducts);
@@ -57,7 +53,7 @@ export default function Product() {
       // User is logged in
       axios
         .post(
-          "http://localhost:8080/cart/product",
+          "https://abs-shop.herokuapp.com/cart/product",
           { productID: product.id },
           {
             headers: { "x-access-token": token },
@@ -95,7 +91,7 @@ export default function Product() {
     if (token !== undefined) {
       axios
         .post(
-          "http://localhost:8080/product/cart/add",
+          "https://abs-shop.herokuapp.com/product/cart/add",
           { product_id: product.id, product_name: product.name },
           { headers: { "x-access-token": Cookies.get("ud") } }
         )
@@ -112,7 +108,7 @@ export default function Product() {
   function removeProductFromCart() {
     axios
       .post(
-        "http://localhost:8080/product/cart/remove",
+        "https://abs-shop.herokuapp.com/product/cart/remove",
         { product_id: product.id },
         { headers: { "x-access-token": Cookies.get("ud") } }
       )
