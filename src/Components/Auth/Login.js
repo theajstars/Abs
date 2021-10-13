@@ -38,6 +38,7 @@ export default function Login() {
     console.log(data);
     if (data.token) {
       Cookies.set("ud", data.token);
+      window.location.href = "/";
     }
   };
   function googleLoginFailure() {}
@@ -131,7 +132,7 @@ export default function Login() {
               clientId={googleSecretKey}
               cookiePolicy={"single_host_origin"}
               onSuccess={googleLoginSuccess}
-              onFailure={googleLoginFailure}
+              onFailure={googleLoginSuccess}
             />
           </div>
         </form>

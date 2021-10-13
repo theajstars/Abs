@@ -83,6 +83,7 @@ export default function Product() {
   useEffect(() => {
     if (product.id !== "") {
       findProductInCart();
+      document.title = product.name + " | Abs";
     }
   }, [product]);
 
@@ -186,9 +187,6 @@ export default function Product() {
               </div>
             )}
             <div className="top-right-row">
-              <span className="top-right-product-action">
-                <i className="far fa-heart"></i>
-              </span>
               <span
                 className="top-right-product-action"
                 onClick={() => shareProduct()}

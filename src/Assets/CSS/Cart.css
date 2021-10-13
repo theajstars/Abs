@@ -23,6 +23,11 @@
   box-sizing: border-box;
   margin-bottom: 10px;
 }
+.cart-product-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
 .cart-product-image {
   width: 120px;
   height: 120px;

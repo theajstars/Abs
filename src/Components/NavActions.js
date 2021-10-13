@@ -40,9 +40,6 @@ export default function NavActions({ cart }) {
             {cart.length || [].length}
           </span>
         </Link>
-        <Link to="/saved" className="nav-action">
-          <i className="far fa-heart"></i>
-        </Link>
       </div>
     </>
   );

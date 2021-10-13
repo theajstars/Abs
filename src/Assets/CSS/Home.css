@@ -16,7 +16,7 @@
   transition: 0.1s;
 }
 .home-product:hover {
-  transform: scale(1.02);
+  box-shadow: 0px 1px 25px -10px rgba(124, 119, 119, 0.89);
 }
 .home-product:active {
   box-shadow: 0px 2px 45px -25px rgba(124, 119, 119, 0.89);

@@ -1,0 +1,132 @@
+.receipt-container {
+  position: absolute;
+  width: 320px;
+  left: 50%;
+  margin-left: -160px;
+  box-sizing: border-box;
+}
+.receipt {
+  background: #fcfcfc;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 10px;
+  margin-top: 10vh;
+  width: 320px;
+  box-sizing: border-box;
+}
+.receipt-image {
+  width: 90px;
+  height: 90px;
+}
+.purchaser-name {
+  font-weight: 500;
+  font-size: 18px;
+  margin-top: 15px;
+}
+.transaction-details {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  margin-top: 17px;
+}
+.transaction-right,
+.transaction-left {
+  display: flex;
+  flex-direction: column;
+}
+.transaction-right {
+  align-items: flex-end;
+}
+.transaction-status {
+  color: rgb(67, 121, 14);
+}
+.transaction-left span,
+.transaction-right span {
+  margin-bottom: 5px;
+}
+.transaction-left span {
+  font-weight: 500;
+}
+.transaction-content {
+  border-top: 1px dashed #000;
+  border-bottom: 1px dashed #000;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 10px;
+  padding: 10px 0px;
+}
+.transaction-content span {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: rgb(17, 17, 17);
+  line-height: 16px;
+  margin: 7px 0px;
+}
+.transaction-total {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+  font-size: 19px;
+  margin-top: 10px;
+}
+.transaction-total span:last-child {
+  font-weight: 600;
+  color: rgb(17, 17, 17);
+}
+.receipt-actions {
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 5px;
+  margin-top: 10px;
+}
+.receipt-actions span {
+  width: 115px;
+
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  height: 34px;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-size: 17px;
+}
+.receipt-actions span:first-child {
+  border: 1px solid rgb(209, 49, 49);
+  background-color: rgb(209, 49, 49);
+  color: #fcfcfc;
+}
+.receipt-actions span:last-child {
+  border: 1px solid #2b418d;
+  background-color: #2b418d;
+  color: #fcfcfc;
+}
+.receipt-actions span:first-child:hover {
+  background-color: transparent;
+  color: rgb(209, 49, 49);
+}
+.receipt-actions span:last-child:hover {
+  background-color: transparent;
+  color: #2b418d;
+}
+.report-overlay {
+  background-color: rgba(0, 0, 0, 0.85);
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 0px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}

@@ -26,6 +26,7 @@ export default function Home() {
         console.log(res.cart);
       });
     }
+    document.title = "Abs | Home";
   }, []);
   function formatPrice(price) {
     return parseInt(price).toLocaleString();
