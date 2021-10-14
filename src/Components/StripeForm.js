@@ -73,16 +73,19 @@ export default function StripeForm() {
               //Send user cart to order
               //Clear user cart
               //Show transaction receipt
-              axios.post(
-                "https://abs-shop.herokuapp.com/purchase/complete",
-                { transactionID, cardType, last4, totalPrice },
-                { headers: { "x-access-token": Cookies.get("ud") } }
-              );
-              setShowReceipt(true);
-              setTimeout(() => {
-                setShowPrevention(false);
-                window.location.href = "/";
-              }, 400);
+              axios
+                .post(
+                  "https://abs-shop.herokuapp.com/purchase/complete",
+                  { transactionID, cardType, last4, totalPrice },
+                  { headers: { "x-access-token": Cookies.get("ud") } }
+                )
+                .then((res) => {
+                  setShowReceipt(true);
+                  setTimeout(() => {
+                    setShowPrevention(false);
+                    window.location.href = "/";
+                  }, 400);
+                });
             }, 2500);
           } else {
             setTimeout(() => {

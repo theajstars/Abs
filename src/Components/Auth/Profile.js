@@ -280,7 +280,7 @@ export default function Profile() {
                   type="text"
                   className="form-input profile-form-input"
                   placeholder="Name"
-                  value={profile.name}
+                  value={profile.name || ""}
                   spellCheck="false"
                   onChange={(e) =>
                     updateProfile({ ...profile, name: e.target.value })
@@ -290,7 +290,7 @@ export default function Profile() {
                   type="text"
                   className="form-input profile-form-input"
                   placeholder="Email"
-                  value={profile.email}
+                  value={profile.email || ""}
                   spellCheck="false"
                   onChange={(e) =>
                     updateProfile({ ...profile, email: e.target.value })
