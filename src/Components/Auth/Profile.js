@@ -300,7 +300,7 @@ export default function Profile() {
               <span className="change-password" onClick={() => resetPassword()}>
                 Change password&nbsp; <i className="far fa-key"></i>
               </span>
-              <div className="newsletter" style={{ zIndex: "-1" }}>
+              <div className="newsletter" style={{ zIndex: "0" }}>
                 Subscribe to newsletter
                 <Switch
                   value={newsletter}

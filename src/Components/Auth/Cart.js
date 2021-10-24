@@ -52,6 +52,7 @@ export default function Cart() {
           headers: { "x-access-token": token },
         })
         .then((res) => {
+          console.log(res);
           updateCheckout(res.data.checkoutCart);
         });
     }
