@@ -42,33 +42,34 @@ export default function Home() {
             justifyContent="center"
             alignContent="center"
           >
-            {products.map((product) => {
-              return (
-                <Grid item xs={6} sm={4} md={3} lg={3}>
-                  <Link
-                    to={`/product/${product.id}`}
-                    className="home-product"
-                    key={product.id}
-                  >
-                    <img
-                      src={product.image}
-                      alt=""
-                      className="home-product-image"
-                    />
-                    <div className="home-product-details">
-                      <span className="home-product-name">
-                        {product.name.length <= 35
-                          ? product.name
-                          : `${product.name.substring(0, 35)}...`}
-                      </span>
-                      <span className="home-product-price">
-                        ₦{formatPrice(product.price)}
-                      </span>
-                    </div>
-                  </Link>
-                </Grid>
-              );
-            })}
+            {products &&
+              products.map((product) => {
+                return (
+                  <Grid item xs={6} sm={4} md={3} lg={3}>
+                    <Link
+                      to={`/product/${product.id}`}
+                      className="home-product"
+                      key={product.id}
+                    >
+                      <img
+                        src={product.image}
+                        alt=""
+                        className="home-product-image"
+                      />
+                      <div className="home-product-details">
+                        <span className="home-product-name">
+                          {product.name.length <= 35
+                            ? product.name
+                            : `${product.name.substring(0, 35)}...`}
+                        </span>
+                        <span className="home-product-price">
+                          ₦{formatPrice(product.price)}
+                        </span>
+                      </div>
+                    </Link>
+                  </Grid>
+                );
+              })}
           </Grid>
         </div>
       </Container>

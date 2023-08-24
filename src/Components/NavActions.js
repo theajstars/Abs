@@ -34,10 +34,10 @@ export default function NavActions({ cart }) {
           <i className="far fa-shopping-cart"></i>
           <span
             className={`${
-              cart.length || [].length > 0 ? "cart-length" : "none-display"
+              cart && cart.length > 0 ? "cart-length" : "none-display"
             }`}
           >
-            {cart.length || [].length}
+            {cart && cart.length && cart.length}
           </span>
         </Link>
       </div>

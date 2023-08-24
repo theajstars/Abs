@@ -46,7 +46,7 @@ export default function Receipt() {
         )
         .then((res) => {
           const trans = res.data.transaction;
-          if (trans.length === 0) {
+          if (!trans || trans.length === 0) {
             //Transaction does not exist
             setReceiptError(true);
           } else {
