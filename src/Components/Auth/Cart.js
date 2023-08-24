@@ -48,7 +48,7 @@ export default function Cart() {
     if (token !== undefined) {
       //User is logged in
       axios
-        .get("https://abs-shop.herokuapp.com/user/cart/checkout", {
+        .get("https://abs-shop-api.onrender.com/user/cart/checkout", {
           headers: { "x-access-token": token },
         })
         .then((res) => {
@@ -62,7 +62,7 @@ export default function Cart() {
     if (token !== undefined) {
       axios
         .post(
-          "https://abs-shop.herokuapp.com/product/cart/add",
+          "https://abs-shop-api.onrender.com/product/cart/add",
           { product_id: productID, product_name: productName },
           { headers: { "x-access-token": Cookies.get("ud") } }
         )
@@ -79,7 +79,7 @@ export default function Cart() {
     if (token !== undefined) {
       axios
         .post(
-          "https://abs-shop.herokuapp.com/product/checkout/remove",
+          "https://abs-shop-api.onrender.com/product/checkout/remove",
           { product_id: productID.product_id },
           { headers: { "x-access-token": Cookies.get("ud") } }
         )
@@ -101,7 +101,7 @@ export default function Cart() {
   function deleteAllProducts(product_ID) {
     axios
       .post(
-        "https://abs-shop.herokuapp.com/cart/product/remove_all",
+        "https://abs-shop-api.onrender.com/cart/product/remove_all",
         { product_ID },
         { headers: { "x-access-token": token } }
       )
@@ -109,7 +109,7 @@ export default function Cart() {
         if (res.data.removed) {
           //Product has been removed from cart
           axios
-            .get("https://abs-shop.herokuapp.com/user/cart/checkout", {
+            .get("https://abs-shop-api.onrender.com/user/cart/checkout", {
               headers: { "x-access-token": token },
             })
             .then((res) => {

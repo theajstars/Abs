@@ -5,9 +5,12 @@ import React, { useState } from "react";
 const token = Cookies.get("ud");
 export async function fetchCart() {
   if (token !== undefined) {
-    const cart = await axios.get("https://abs-shop.herokuapp.com/user/cart", {
-      headers: { "x-access-token": token },
-    });
+    const cart = await axios.get(
+      "https://abs-shop-api.onrender.com/user/cart",
+      {
+        headers: { "x-access-token": token },
+      }
+    );
     return await cart.data;
   } else {
     const cart = [];

@@ -16,7 +16,7 @@ export default function SearchBox() {
       setSearchError(false);
       setSearchResults([]);
       axios
-        .post("https://abs-shop.herokuapp.com/search", { term: searchText })
+        .post("https://abs-shop-api.onrender.com/search", { term: searchText })
         .then((res) => {
           setSearchResults(res.data.results);
           setSearchActive(true);

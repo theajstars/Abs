@@ -16,7 +16,7 @@ export default function Home() {
   const [cart, updateCart] = useState([]);
 
   useEffect(() => {
-    axios.get("https://abs-shop.herokuapp.com/products/home").then((res) => {
+    axios.get("https://abs-shop-api.onrender.com/products/home").then((res) => {
       setProducts(res.data.products);
     });
     if (token !== undefined) {

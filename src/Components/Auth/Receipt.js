@@ -40,7 +40,7 @@ export default function Receipt() {
       //Fetch receipt details
       axios
         .post(
-          "https://abs-shop.herokuapp.com/transaction",
+          "https://abs-shop-api.onrender.com/transaction",
           { transactionID },
           { headers: { "x-access-token": token } }
         )

@@ -25,7 +25,7 @@ export default function Login() {
   const [responseText, setResponseText] = useState("");
   const googleLoginSuccess = async (googleData) => {
     const res = await fetch(
-      "https://abs-shop.herokuapp.com/api/v1/auth/google",
+      "https://abs-shop-api.onrender.com/api/v1/auth/google",
       {
         method: "POST",
         body: JSON.stringify({
@@ -77,7 +77,7 @@ export default function Login() {
         password: password,
       };
       axios
-        .post("https://abs-shop.herokuapp.com/user/login", user)
+        .post("https://abs-shop-api.onrender.com/user/login", user)
         .then((res) => {
           const auth = res.data.auth;
           const token = res.data.token;

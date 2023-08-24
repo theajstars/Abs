@@ -51,7 +51,7 @@ export default function StripeForm() {
           const last4 = paymentMethod.card.last4;
           const cardType = paymentMethod.card.brand;
           const response = await axios.post(
-            "https://abs-shop.herokuapp.com/cart/pay",
+            "https://abs-shop-api.onrender.com/cart/pay",
             {
               amount: totalPrice,
               id: id,
@@ -75,7 +75,7 @@ export default function StripeForm() {
               //Show transaction receipt
               axios
                 .post(
-                  "https://abs-shop.herokuapp.com/purchase/complete",
+                  "https://abs-shop-api.onrender.com/purchase/complete",
                   { transactionID, cardType, last4, totalPrice },
                   { headers: { "x-access-token": Cookies.get("ud") } }
                 )

@@ -32,7 +32,7 @@ export default function Register() {
 
   const googleLoginSuccess = async (googleData) => {
     const res = await fetch(
-      "https://abs-shop.herokuapp.com/api/v1/auth/google",
+      "https://abs-shop-api.onrender.com/api/v1/auth/google",
       {
         method: "POST",
         body: JSON.stringify({
@@ -92,7 +92,7 @@ export default function Register() {
         password: password,
       };
       axios
-        .post("https://abs-shop.herokuapp.com/user/register", user)
+        .post("https://abs-shop-api.onrender.com/user/register", user)
         .then((res) => {
           if (res.data.userExists) {
             // If user already exists

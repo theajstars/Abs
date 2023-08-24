@@ -49,7 +49,7 @@ export default function ReportComplaint({ transaction_id, user_id }) {
         user_id: user_id,
       };
       axios
-        .post("https://abs-shop.herokuapp.com/report", complaintOptions, {
+        .post("https://abs-shop-api.onrender.com/report", complaintOptions, {
           headers: { "x-access-token": token },
         })
         .then((res) => {

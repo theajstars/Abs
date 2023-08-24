@@ -11,7 +11,7 @@ function App() {
   useEffect(() => {
     if (token !== undefined) {
       axios
-        .get("https://abs-shop.herokuapp.com/isUserAuth", {
+        .get("https://abs-shop-api.onrender.com/isUserAuth", {
           headers: { "x-access-token": token },
         })
         .then((res) => {

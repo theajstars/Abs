@@ -34,7 +34,7 @@ export default function Profile() {
     document.title = "Profile";
     if (token !== undefined) {
       axios
-        .get("https://abs-shop.herokuapp.com/user/cart/checkout", {
+        .get("https://abs-shop-api.onrender.com/user/cart/checkout", {
           headers: { "x-access-token": token },
         })
         .then((res) => {
@@ -45,7 +45,7 @@ export default function Profile() {
         });
       // Fetch user profile
       axios
-        .get("https://abs-shop.herokuapp.com/user/profile", {
+        .get("https://abs-shop-api.onrender.com/user/profile", {
           headers: { "x-access-token": token },
         })
         .then((res) => {
@@ -55,7 +55,7 @@ export default function Profile() {
 
       //Fetch user Orders
       axios
-        .get("https://abs-shop.herokuapp.com/orders", {
+        .get("https://abs-shop-api.onrender.com/orders", {
           headers: { "x-access-token": token },
         })
         .then((res) => {
@@ -86,7 +86,7 @@ export default function Profile() {
     } else {
       axios
         .post(
-          "https://abs-shop.herokuapp.com/profile/update",
+          "https://abs-shop-api.onrender.com/profile/update",
           { profile, newsletter },
           { headers: { "x-access-token": token } }
         )
@@ -101,7 +101,7 @@ export default function Profile() {
   }
   function resetPassword() {
     axios
-      .get("https://abs-shop.herokuapp.com/password/reset", {
+      .get("https://abs-shop-api.onrender.com/password/reset", {
         headers: { "x-access-token": token },
       })
       .then((res) => {
@@ -150,7 +150,7 @@ export default function Profile() {
         //Token is valid and passwords match
         axios
           .post(
-            "https://abs-shop.herokuapp.com/password/update",
+            "https://abs-shop-api.onrender.com/password/update",
             { password: newPassword },
             { headers: { "x-access-token": Cookies.get("ud") } }
           )
